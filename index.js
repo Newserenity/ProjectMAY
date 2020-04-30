@@ -39,10 +39,14 @@ function foldOpen3(){
 }
 
 function addItem(){
+    let inputFilde = document.getElementById("inputFilde");
+
+    if (!inputFilde.value) {
+        alert("Title is empty")
+        return;
+    }
 
     const listElement = document.getElementById("todoList");
-    
-    let inputFilde = document.getElementById("inputFilde");
 
     const div = document.createElement("div");
     const head = document.createElement("p");
@@ -63,20 +67,17 @@ function addItem(){
     moveButton.innerHTML = "削除";
     removeButton.innerHTML = "移動";
 
+    head.classList.add("event-content");
+    date.classList.add("event-content");
+    moveButton.classList.add("del-button");
+    removeButton.classList.add("del-button");
+
     div.appendChild(head);
     div.appendChild(date);
     div.appendChild(moveButton);
     div.appendChild(removeButton);
 
     listElement.appendChild(div);
-
-    // var headText = document.createTextNode(inputFilde.value);
-    // var removeButtonText = document.createTextNode("削除");
-
-    // head.appendChild(headText);
-    // removeButton.appendChild(removeButtonText);
-
-    // console.log("aa")
 }
 
 function delItem(){
