@@ -1,3 +1,18 @@
+/// remove() 폴리필
+///
+if (!('remove' in Element.prototype)) {
+    Element.prototype['remove'] = function () {
+        if (this.parentNode) {
+            this.parentNode.removeChild(this);
+        }
+    };
+}
+///
+///
+
+
+
+
 let opendFold = [];
 
 function foldOpen(id) {
@@ -13,64 +28,73 @@ function foldOpen(id) {
 }
 
 function addItem(){
-    let inputFilde = document.getElementById("inputFilde");
+    // 할일 가져오기
+    let inputFildeValue = document.createTextNode(document.getElementById("inputFilde").value);
 
-    if (!inputFilde.value) {
+    // 할일 가져온거 체크
+    if (!inputFildeValue) {
         alert("Title is empty")
         return;
     }
 
+    // 리스트 가져오기
     const listElement = document.getElementById("todoList");
     const doingList = document.getElementById("doingList");
 
+    // 할일 카드 생성
     const div = document.createElement("div");
     const head = document.createElement("p");
     const date = document.createElement("p");
     const moveButton = document.createElement("button");
     const removeButton = document.createElement("button");
 
-    let inputFildeValue = document.createTextNode(inputFilde.value);
-
+    // 시간 라이브러리
     let today = new Date()
 
-    let month = today.getMonth() + 1;  // 0월이 1월
-    let day = today.getDate();  // 날짜
+    // 월, 일
+    let month = today.getMonth() + 1; // 0월 시작
+    let day = today.getDate();
 
+    // 할일 삽입
     head.appendChild(inputFildeValue);
 
+    // 날자 삽입
     date.innerHTML = month + "/" + day;
+
+    // 버튼 글자삽입
     moveButton.innerHTML = "移動";
     removeButton.innerHTML = "削除";
 
+    // class 추가
     head.classList.add("event-content");
     date.classList.add("event-content");
     moveButton.classList.add("del-button");
     removeButton.classList.add("del-button");
 
+    // 삭제 기능 삽입
     removeButton.addEventListener("click", function () {
-        div.remove()
-    });
-
-    moveButton.addEventListener("click", function(){
-        div.appendChild(doingList);
         div.remove();
     });
 
+    // 이동기능 삽입
+    moveButton.addEventListener("click", function(){
+        // div.remove();
+        doingList.appendChild(div);
+    });
+
+    // 묶기
     div.appendChild(head);
     div.appendChild(date);
     div.appendChild(moveButton);
     div.appendChild(removeButton);
 
+    // 리스트에 추가
     listElement.appendChild(div);
 }
 
-function delItem(){
+// list
 
-}
-
-function moveItem(){
-
-}
+// 변수 asdf
 
 // var input = document.getElementById("myInput");
 
